@@ -55,11 +55,38 @@ export class ExchangeRatesService {
 
     async sendExchangeRate(cryptoCurrency: string, fiatCurrency: string) {
         if (this.ws.readyState === WebSocket.OPEN) {
-            const exchangeRateObj = {
-                crypto_currency: cryptoCurrency,
-                fiat_currency: fiatCurrency,
-            };
-            this.ws.send(JSON.stringify(exchangeRateObj));
+                this.ws.send(
+                    JSON.stringify({
+                        event: 'subscribe',
+                        pair: [`${cryptoCurrency.toUpperCase()}/${fiatCurrency.toUpperCase()}`],
+                        subscription: { name: 'ticker' },
+                    }),
+                );
+
+                return new Promise((resolve, reject) => {
+                    const timeout = setTimeout(() => {
+                        this.ws.close();
+                        reject('Timeout');
+                    }, 5000);
+
+                    this.ws.on('message', (data: string) => {
+                        const response = JSON.parse(data);
+
+                        if (Array.isArray(response) && response[1] && response[1].c) {
+                            const exchangeRate = response[1].c[0];
+
+                            const exchangeRateObj = {
+                                crypto_currency: cryptoCurrency,
+                                fiat_currency: fiatCurrency,
+                                exchange_rate: exchangeRate,
+                            };
+                            this.ws.send(JSON.stringify(exchangeRateObj));
+                            clearTimeout(timeout);
+                            this.ws.close();
+                            resolve(exchangeRateObj);
+                        }
+                    });
+                });
         } else {
             console.error('WebSocket is not open');
         }

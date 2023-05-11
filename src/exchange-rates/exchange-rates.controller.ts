@@ -10,7 +10,7 @@ export class ExchangeRatesController {
         @Query('crypto_currency') cryptoCurrency: string,
         @Query('fiat_currency') fiatCurrency: string,
     ) {
-        await this.exchangeRatesService.sendExchangeRate(
+        return await this.exchangeRatesService.sendExchangeRate(
             cryptoCurrency,
             fiatCurrency,
         );

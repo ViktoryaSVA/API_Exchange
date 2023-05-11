@@ -75,7 +75,6 @@ export class ExchangeRatesService {
 
                         if (Array.isArray(response) && response[1] && response[1].c) {
                             const exchangeRate = response[1].c[0];
-                            console.log(cryptoCurrency)
                             const exchangeRateObj = {
                                 crypto_currency: cryptoCurrency,
                                 fiat_currency: fiatCurrency,
@@ -93,7 +92,7 @@ export class ExchangeRatesService {
         }
     }
     public async getExchangeRates(): Promise<Record<string, Record<string, number>>> {
-        const pairs = ['XBT/USD', 'XBT/EUR', 'ETH/USD', 'ETH/EUR'];
+        const pairs = ['XBT/USD', 'XBT/EUR','XBT/CAD','XBT/JPY', 'ETH/USD', 'ETH/CAD', 'ETH/EUR', 'ETH/JPY', 'BCH/JPY', 'BCH/USD', 'BCH/EUR', 'BCH/CAD'];
         const ws = new WebSocket('wss://ws.kraken.com');
         const exchangeRates: Record<string, Record<string, number>> = {};
 

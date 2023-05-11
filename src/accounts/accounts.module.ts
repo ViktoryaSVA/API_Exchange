@@ -20,17 +20,31 @@ export class AccountsModule implements OnModuleInit {
     ) {}
 
     async onModuleInit() {
-        await this.accountsCron.handleCron();
-        const accounts = [
-            { crypto_currency: 'BTC', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
-            { crypto_currency: 'ETH', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
-        ];
-        const check = await this.accountsService.findAll();
+        try {
+            const accounts = [
+                { crypto_currency: 'BTC', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BTC', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BTC', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BTC', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'ETH', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'ETH', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'ETH', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'ETH', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BCH', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BCH', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BCH', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
+                { crypto_currency: 'BCH', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
+            ];
+            const check = await this.accountsService.findAll();
 
-        if (check.length < 1) {
-            for (const account of accounts) {
-                await this.accountsService.create(account);
+            if (check.length < 1) {
+                for (const account of accounts) {
+                    await this.accountsService.create(account);
+                }
             }
+            await this.accountsCron.handleCron();
+        } catch (e) {
+            console.log(e)
         }
     }
 }

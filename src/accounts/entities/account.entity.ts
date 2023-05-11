@@ -6,13 +6,10 @@ export class Account {
     id: number;
 
     @Column()
-    name: string;
-
-    @Column()
     balance: number;
 
     @Column()
-    balance_in_fiat: number;
+    balance_in_fiat: string;
 
     @Column()
     crypto_currency: string;

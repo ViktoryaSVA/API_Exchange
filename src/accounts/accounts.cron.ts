@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Injectable, Logger } from '@nestjs/common';
+// import { Cron } from '@nestjs/schedule';
 import { AccountsService } from './accounts.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class AccountsCron {
+    private readonly logger = new Logger(AccountsCron.name);
+
     constructor(private readonly accountsService: AccountsService) {}
 
-    @Cron('0 */1 * * * *') // запускати кожні 10 хвилин
+    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
     async handleCron() {
-        console.log('Running updateBalances cron job');
         await this.accountsService.updateBalances();
-        console.log('Finished updateBalances cron job');
+        this.logger.debug('Called every dat at 00:00');
     }
 }

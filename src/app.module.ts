@@ -10,6 +10,7 @@ import { Account } from './accounts/entities/account.entity';
 import { AccountsService } from './accounts/accounts.service';
 import { AccountsController } from './accounts/accounts.controller';
 import { AccountsCron } from './accounts/accounts.cron';
+import {AccountsModule} from "./accounts/accounts.module";
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { AccountsCron } from './accounts/accounts.cron';
             synchronize: true,
         }),
         TypeOrmModule.forFeature([Account]),
+        AccountsModule,
     ],
     controllers: [AccountsController, ExchangeRatesController],
     providers: [AccountsService, AccountsCron, ExchangeRatesService],

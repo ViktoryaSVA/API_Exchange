@@ -7,7 +7,6 @@ export class ExchangeRatesService {
     private timer: NodeJS.Timer;
     private cryptoCurrency: string;
     private fiatCurrency: string;
-    private exchangeRates: Record<string, Record<string, number>> = {};
 
     constructor() {
         this.connectWebSocket(this.cryptoCurrency, this.fiatCurrency);
@@ -92,7 +91,7 @@ export class ExchangeRatesService {
         }
     }
     public async getExchangeRates(): Promise<Record<string, Record<string, number>>> {
-        const pairs = ['XBT/USD', 'XBT/EUR','XBT/CAD','XBT/JPY', 'ETH/USD', 'ETH/CAD', 'ETH/EUR', 'ETH/JPY', 'BCH/JPY', 'BCH/USD', 'BCH/EUR', 'BCH/CAD'];
+        const pairs = ['XBT/USD', 'XBT/EUR', 'ETH/USD', 'ETH/EUR', 'BCH/USD', 'BCH/EUR'];
         const ws = new WebSocket('wss://ws.kraken.com');
         const exchangeRates: Record<string, Record<string, number>> = {};
 

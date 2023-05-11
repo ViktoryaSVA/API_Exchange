@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Account } from './entities/account.entity';
-import * as CronJob from 'node-cron';
 import {ExchangeRatesService} from "../exchange-rates/exchange-rates.service";
 
 @Injectable()
@@ -45,13 +44,5 @@ export class AccountsService {
     async create(accountData: Partial<Account>): Promise<Account> {
         const account = this.accountsRepository.create(accountData);
         return this.accountsRepository.save(account);
-    }
-    startCron(): void {
-        const job = new CronJob('0 */1 * * *', async () => {
-            console.log('Running cron job to update balances...');
-            await this.updateBalances();
-            console.log('Finished updating balances.');
-        });
-        job.start();
     }
 }

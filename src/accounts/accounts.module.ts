@@ -24,16 +24,10 @@ export class AccountsModule implements OnModuleInit {
             const accounts = [
                 { crypto_currency: 'BTC', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
                 { crypto_currency: 'BTC', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'BTC', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'BTC', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
                 { crypto_currency: 'ETH', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
                 { crypto_currency: 'ETH', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'ETH', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'ETH', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
                 { crypto_currency: 'BCH', fiat_currency: 'USD', balance: 1, balance_in_fiat: '0' },
                 { crypto_currency: 'BCH', fiat_currency: 'EUR', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'BCH', fiat_currency: 'CAD', balance: 1, balance_in_fiat: '0' },
-                { crypto_currency: 'BCH', fiat_currency: 'JPY', balance: 1, balance_in_fiat: '0' },
             ];
             const check = await this.accountsService.findAll();
 

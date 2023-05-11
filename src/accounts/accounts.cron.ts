@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-// import { Cron } from '@nestjs/schedule';
 import { AccountsService } from './accounts.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
@@ -9,8 +8,7 @@ export class AccountsCron {
 
     constructor(private readonly accountsService: AccountsService) {}
 
-    @Cron(CronExpression.EVERY_5_SECONDS)
-    //EVERY_DAY_AT_MIDNIGHT
+    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
     async handleCron() {
         await this.accountsService.updateBalances();
         this.logger.debug('Called every dat at 00:00');
